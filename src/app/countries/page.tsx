@@ -7,8 +7,8 @@ const Countries = () => {
   return (
     <div>
       <CitiesSelectModal />
-      <SoacialPlatform />
-      <Events />
+      {/* <SoacialPlatform />
+      <Events /> */}
       <Map />
     </div>
   );
