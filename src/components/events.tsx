@@ -19,7 +19,7 @@ const Events = (props: Props) => {
     };
 
     fetchEvents();
-  }, [events]);
+  }, []);
 
   return (
     <div>
