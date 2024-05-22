@@ -14,6 +14,7 @@ import supabase from "@/lib/subaseClient";
 export default function Map() {
   const [latitude, setLatitude] = useState<number>(0);
   const [longitude, setLongitude] = useState<number>(0);
+  const [eventsData, setEventsData] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchLocations = async () => {
@@ -22,6 +23,7 @@ export default function Map() {
         // console.log(data[0].latitude, data[0].longitude);
         setLatitude(data[0].latitude);
         setLongitude(data[0].longitude);
+        setEventsData(data);
       } else {
         console.error(error);
       }
@@ -30,13 +32,13 @@ export default function Map() {
     fetchLocations();
   }, []);
 
-  const position: [number, number] = [longitude, latitude];
+  const position: [number, number] = [latitude, longitude];
 
   return (
     <MapContainer
       preferCanvas={true}
-      center={[51.505, -0.09]}
-      zoom={11}
+      center={[35, 0]}
+      zoom={2}
       scrollWheelZoom={true}
       style={{ height: "400px", width: "100%" }}
     >
@@ -50,12 +52,17 @@ export default function Map() {
           <i>leaflet-defaulticon-compatibility</i>.
         </Popup>
       </Marker> */}
-      <Marker position={position}>
-        <Popup>
-          This Marker icon is displayed correctly with{" "}
-          <i>leaflet-defaulticon-compatibility</i>.
-        </Popup>
-      </Marker>
+      {eventsData.map((event) => (
+        <Marker key={event.id} position={[event.longitude, event.latitude]}>
+          <Popup>
+            {event.name} {event.city_id} {event.base_portal_link}{" "}
+            {event.social_platform_id} {event.event_type_id} {event.language}{" "}
+            {event.local_time}
+            {event.time_zone} {event.utc_time} {event.longitute}{" "}
+            {event.latitude}
+          </Popup>
+        </Marker>
+      ))}
     </MapContainer>
   );
 }
