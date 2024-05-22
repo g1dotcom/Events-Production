@@ -38,7 +38,7 @@ export default function Map() {
     <MapContainer
       preferCanvas={true}
       center={[35, 0]}
-      zoom={2}
+      zoom={1}
       scrollWheelZoom={true}
       style={{ height: "400px", width: "100%" }}
     >
