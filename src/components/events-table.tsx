@@ -65,7 +65,6 @@ export function EventsTable() {
       const { data, error } = await supabase.from("events").select("*");
       if (data) {
         setEvents(data);
-        console.log(data);
       } else {
         console.error(error);
       }
@@ -73,6 +72,10 @@ export function EventsTable() {
 
     fetchEvents();
   }, []);
+
+  useEffect(() => {
+    console.log("Updated events:", events);
+  }, [events]);
   return (
     <Table>
       <TableCaption>A list of your recent invoices.</TableCaption>
@@ -93,6 +96,16 @@ export function EventsTable() {
         {events.map((event) => (
           <TableRow key={event.id}>
             <TableCell className="font-medium">{event.city_id}</TableCell>
+            <TableCell>{event.base_portal_link}</TableCell>
+            <TableCell>{event.social_platform_id}</TableCell>
+            <TableCell>{event.event_type_id}</TableCell>
+
+            <TableCell>{event.language}</TableCell>
+            <TableCell>{event.local_time}</TableCell>
+            <TableCell>{event.time_zone}</TableCell>
+            <TableCell>{event.utc_time}</TableCell>
+            <TableCell>{event.countdown}</TableCell>
+
             {/* <TableCell>{invoice.paymentStatus}</TableCell>
             <TableCell>{invoice.paymentMethod}</TableCell> */}
           </TableRow>
