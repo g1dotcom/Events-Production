@@ -23,8 +23,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={roboto.className}>
-      <body className={cn("min-h-screen , bg-[#212529] ")}>
-        <Navbar />
+      <body className={cn("min-h-screen , bg-[#212529] px-6")}>
+        {/* <Navbar /> */}
         {children}
       </body>
     </html>
