@@ -8,7 +8,7 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import "leaflet-defaulticon-compatibility";
 // END: Preserve spaces to avoid auto-sorting
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import supabase from "@/lib/subaseClient";
 import { FlipWordsTitle } from "./flip-words-title";
 
@@ -16,6 +16,7 @@ export default function Map() {
   const [latitude, setLatitude] = useState<number>(0);
   const [longitude, setLongitude] = useState<number>(0);
   const [eventsData, setEventsData] = useState<any[]>([]);
+  const [eventTypes, setEventTypes] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchLocations = async () => {
@@ -32,6 +33,29 @@ export default function Map() {
 
     fetchLocations();
   }, []);
+
+  useEffect(() => {
+    const fetchEventTypes = async () => {
+      const { data, error } = await supabase.from("event_types").select("*");
+      if (data) {
+        setEventTypes(data);
+      } else {
+        console.error(error);
+      }
+    };
+
+    fetchEventTypes();
+  }, []);
+
+  const combinedData = eventsData.map((event) => {
+    const eventType = eventTypes.find(
+      (type) => type.id === event.event_type_id
+    );
+    return {
+      ...event,
+      eventTypeName: eventType ? eventType.name : "Unknown",
+    };
+  });
 
   const position: [number, number] = [latitude, longitude];
 
@@ -56,17 +80,33 @@ export default function Map() {
           <i>leaflet-defaulticon-compatibility</i>.
         </Popup>
       </Marker> */}
-      {eventsData.map((event) => (
+      {combinedData.map((event) => (
         <Marker key={event.id} position={[event.longitude, event.latitude]}>
           <Popup>
-            {event.name} {event.city_id} {event.base_portal_link}{" "}
-            {event.social_platform_id} {event.event_type_id} {event.language}{" "}
-            {event.local_time}
-            {event.time_zone} {event.utc_time} {event.longitute}{" "}
-            {event.latitude}
+            <div>
+              <h1 className="font-bold border-black border-b-2">
+                {event.name}
+              </h1>
+              <p>Event Type: {event.eventTypeName}</p>
+              <p>Language: {event.language}</p>
+              <p>Start Time: {event.local_time}</p>
+              <p>Time Zone: {event.time_zone}</p>
+              <p>UTC Time: {event.utc_time}</p>
+            </div>
           </Popup>
         </Marker>
       ))}
+
+      {/* </div>
+           <div className="flex flex-col w-full">
+              <p className="w-full"> Event Type: {event.event_type_id}</p>
+              <p> Language: {event.language}</p>
+              <p> Start Time: {event.local_time}</p> Time Zone: UTC -4 :{" "}
+              <p> {event.utc_time}</p>
+            </div>
+          </Popup>
+        </Marker> */}
+      {/* ))} */}
     </MapContainer>
   );
 }
