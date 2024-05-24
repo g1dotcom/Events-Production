@@ -4,6 +4,7 @@ import Events from "@/components/events";
 import Map from "@/components/map";
 import { EventsTable } from "@/components/events-table";
 import { FlipWordsTitle } from "@/components/flip-words-title";
+import Navbar from "@/components/navbar";
 
 const Countries = () => {
   return (
@@ -14,9 +15,7 @@ const Countries = () => {
           <FlipWordsTitle />
         </div> */}
       </div>
-
       <EventsTable />
-
       {/* <BackgroundBeams /> */}
     </div>
   );
