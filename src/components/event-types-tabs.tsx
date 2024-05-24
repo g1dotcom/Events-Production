@@ -14,9 +14,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 export function EventTypesTabs() {
   return (
     <Tabs defaultValue="account" className="w-[400px] ">
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="account">Account</TabsTrigger>
-        <TabsTrigger value="password">Password</TabsTrigger>
+      <TabsList className="grid w-full grid-cols-2 bg-[#783cbd]">
+        <TabsTrigger className="h-[1px]" value="account"></TabsTrigger>
+        <TabsTrigger value="password" className="h-[1px]"></TabsTrigger>
       </TabsList>
       <TabsContent value="account">
         <Card>
