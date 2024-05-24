@@ -10,60 +10,28 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Image from "next/image";
+import Anomally from "../../public/events-types/xmanomaly.png";
 
 export function EventTypesTabs() {
+  const SpanHover = "border-b-2 border-white";
+
+  // className={`w-full lg:w-1/6 md:rounded-l-3xl ${   darkMode ? "dark-light-info shadow-xl shadow-black" : "bg-main-left"  }`}
+
   return (
-    <Tabs defaultValue="account" className="w-[400px] ">
-      <TabsList className="grid w-full grid-cols-2 bg-[#783cbd]">
-        <TabsTrigger className="h-[1px]" value="account"></TabsTrigger>
-        <TabsTrigger value="password" className="h-[1px]"></TabsTrigger>
-      </TabsList>
-      <TabsContent value="account">
-        <Card>
-          <CardHeader>
-            <CardTitle>Account</CardTitle>
-            <CardDescription>
-              Make changes to your account here. Click save when you're done.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <div className="space-y-1">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" defaultValue="Pedro Duarte" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="username">Username</Label>
-              <Input id="username" defaultValue="@peduarte" />
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button>Save changes</Button>
-          </CardFooter>
-        </Card>
-      </TabsContent>
-      <TabsContent value="password">
-        <Card>
-          <CardHeader>
-            <CardTitle>Password</CardTitle>
-            <CardDescription>
-              Change your password here. After saving, you'll be logged out.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <div className="space-y-1">
-              <Label htmlFor="current">Current password</Label>
-              <Input id="current" type="password" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="new">New password</Label>
-              <Input id="new" type="password" />
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button>Save password</Button>
-          </CardFooter>
-        </Card>
-      </TabsContent>
-    </Tabs>
+    <div className="w-full flex justify-center ">
+      <div className="text-white flex flex-col items-center  hover:border-white border-[#783cbd] border-b-2 px-4">
+        <Image width={40} src={Anomally} alt="" />
+        <h1>ANOMALY</h1>
+      </div>
+      <div className="text-white flex flex-col items-center  hover:border-white border-[#783cbd] border-b-2 px-4">
+        <Image width={40} src={Anomally} alt="" />
+        <h1>ANOMALY</h1>
+      </div>
+      <div className="text-white flex flex-col items-center  hover:border-white border-[#783cbd] border-b-2 px-4">
+        <Image width={40} src={Anomally} alt="" />
+        <h1>ANOMALY</h1>
+      </div>
+    </div>
   );
 }
