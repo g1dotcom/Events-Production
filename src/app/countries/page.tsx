@@ -8,15 +8,11 @@ import Header from "@/components/header";
 
 const Countries = () => {
   return (
-    <div className=" w-full h-screen mt-8">
+    <div className=" w-full h-screen  space-y-11 mt-8">
       <Header />
       <Map />
-      {/* <div className="w-1/3 flex justify-center items-center h-full bg-red-500">
-          <FlipWordsTitle />
-        </div> */}
 
       <EventsTable />
-      {/* <BackgroundBeams /> */}
     </div>
   );
 };
