@@ -74,7 +74,7 @@ export function EventsTable() {
   }, []);
 
   useEffect(() => {
-    console.log("Updated events:", events);
+    // console.log("Updated events:", events);
   }, [events]);
   return (
     <Table>
