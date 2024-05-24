@@ -16,48 +16,58 @@ export function EventTypesTabs() {
       value: "xmanomaly",
       description:
         "An Anomaly is a series of events in which two factions compete for control of the local XM network. The winning faction will gain special rewards.",
-    },
-    {
-      name: "Mission Day",
-      value: "missionday",
-      description:
-        "Mission Day is an event where players explore the world around them by completing missions.",
-    },
-    {
-      name: "First Saturday",
-      value: "firstsaturday",
-      description:
-        "First Saturday is a casual meetup for Ingress players to socialize, hack portals, and work on their mission badges.",
-    },
-
-    {
-      name: "NL-1331",
-      value: "nl1331",
-      description:
-        "First Saturday is a casual meetup for Ingress players to socialize, hack portals, and work on their mission badges.",
-    },
-    {
-      name: "Special Events",
-      value: "specialevents",
-      description:
-        "First Saturday is a casual meetup for Ingress players to socialize, hack portals, and work on their mission badges.",
-    },
-    {
-      name: "TKO",
-      value: "tko",
-      description:
-        "First Saturday is a casual meetup for Ingress players to socialize, hack portals, and work on their mission badges.",
+      descriptionImage: "xm-anomaly-photo",
     },
     {
       name: "Hexathlon",
       value: "hexathlon1",
       description:
-        "First Saturday is a casual meetup for Ingress players to socialize, hack portals, and work on their mission badges.",
+        "At Hexathlons, you will have a limited time to complete six challenges. Your results will be ranked on a leaderboard, for the chance to earn an elite Hexathlon medal!",
+      descriptionImage: "xm-anomaly-photo",
+    },
+    {
+      name: "Mission Day",
+      value: "missionday",
+      description:
+        "During Mission Days, explore and interact with highlighted landmarks during simple but fun in-game missions within a specified city.Want to host your own? Find out more!",
+      descriptionImage: "mission-day-photo",
+    },
+    {
+      name: "NL-1331",
+      value: "nl1331",
+      description:
+        "NL-1331 features casual missions aiming to explore different cities and locales using a special Ingress-customized vehicle called the `XM Detection Mobile Lab`.",
+      descriptionImage: "nl-1331-photo",
+    },
+    {
+      name: "First Saturday",
+      value: "firstsaturday",
+      description:
+        "Join player-hosted local events on the first Saturday of each month to welcome new Agents into Ingress and socialize with members of both factions.Want to host your own? Find out more!",
+
+      descriptionImage: "first-saturday-photo",
+    },
+    {
+      name: "TKO",
+      value: "tko",
+      description:
+        "Agents will undertake challenging physical workouts and obstacles with the TKO (Tactical Kinetic Operations division) to push their limits and explore their potential.",
+      descriptionImage: "tko-photo",
+    },
+    {
+      name: "Special Events",
+      value: "specialevents",
+      description:
+        "Special Events are unique Ingress events that may be creative endeavors, exceptional challenges, or personal adventures.",
+      descriptionImage: "special-events-photo",
     },
   ];
 
   const getActiveEvent = () =>
     eventTypes.find((event) => event.value === activeTab);
+  eventTypes.find((event) => {
+    event.descriptionImage === activeTab;
+  });
 
   return (
     <div className="w-full relative flex flex-col items-center">
@@ -93,11 +103,12 @@ export function EventTypesTabs() {
         {getActiveEvent() && (
           <div className="w-full flex justify-center space-x-10">
             <Image
+              height={350}
               width={350}
-              src={AnomallyBanner}
+              src={`/events/${getActiveEvent()?.descriptionImage}.jpg`}
               alt={getActiveEvent()?.name ?? ""}
             />
-            <p>{getActiveEvent()?.description}</p>
+            <p className="w-[700px]">{getActiveEvent()?.description}</p>
           </div>
         )}
       </div>
