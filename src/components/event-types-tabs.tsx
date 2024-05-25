@@ -12,21 +12,21 @@ export function EventTypesTabs() {
 
   const eventTypes = [
     {
-      name: "Anomaly",
+      name: "ANOMALY",
       value: "xmanomaly",
       description:
         "An Anomaly is a series of events in which two factions compete for control of the local XM network. The winning faction will gain special rewards.",
       descriptionImage: "xm-anomaly-photo",
     },
     {
-      name: "Hexathlon",
+      name: "HEXAATHLON",
       value: "hexathlon1",
       description:
         "At Hexathlons, you will have a limited time to complete six challenges. Your results will be ranked on a leaderboard, for the chance to earn an elite Hexathlon medal!",
       descriptionImage: "xm-anomaly-photo",
     },
     {
-      name: "Mission Day",
+      name: "MISSION DAY",
       value: "missionday",
       description:
         "During Mission Days, explore and interact with highlighted landmarks during simple but fun in-game missions within a specified city.Want to host your own? Find out more!",
@@ -40,7 +40,7 @@ export function EventTypesTabs() {
       descriptionImage: "nl-1331-photo",
     },
     {
-      name: "First Saturday",
+      name: "FIRST SATURDAY",
       value: "firstsaturday",
       description:
         "Join player-hosted local events on the first Saturday of each month to welcome new Agents into Ingress and socialize with members of both factions.Want to host your own? Find out more!",
@@ -55,7 +55,7 @@ export function EventTypesTabs() {
       descriptionImage: "tko-photo",
     },
     {
-      name: "Special Events",
+      name: "SPECIAL EVENTS",
       value: "specialevents",
       description:
         "Special Events are unique Ingress events that may be creative endeavors, exceptional challenges, or personal adventures.",
@@ -82,10 +82,9 @@ export function EventTypesTabs() {
           >
             <div
               style={{
-                width: 100,
+                width: 50,
                 height: 100,
                 position: "relative",
-                marginBottom: 10,
               }}
             >
               <Image
