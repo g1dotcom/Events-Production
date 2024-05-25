@@ -85,9 +85,10 @@ export function EventTypesTabs() {
           >
             <div
               style={{
-                width: 50,
-                height: 100,
+                width: "100%",
+                height: 50,
                 position: "relative",
+                padding: 10,
               }}
             >
               <Image
