@@ -4,7 +4,6 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -12,57 +11,12 @@ import {
 import supabase from "@/lib/subaseClient";
 import { useState, useEffect } from "react";
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-];
-
 export function EventsTable() {
   const [events, setEvents] = useState<any[]>([]);
   const [eventTypes, setEventTypes] = useState<any[]>([]);
   const [SocialPlatforms, setSocialPlatforms] = useState<any[]>([]);
 
-  //event_types data fetch
+  // event_types data fetch
   useEffect(() => {
     const fetchEventTypes = async () => {
       const { data, error } = await supabase.from("event_types").select("*");
@@ -76,7 +30,7 @@ export function EventsTable() {
     fetchEventTypes();
   }, []);
 
-  //events data fetch
+  // events data fetch
   useEffect(() => {
     const fetchEvents = async () => {
       const { data, error } = await supabase.from("events").select("*");
@@ -90,7 +44,7 @@ export function EventsTable() {
     fetchEvents();
   }, []);
 
-  //social_platforms data fetch
+  // social_platforms data fetch
   useEffect(() => {
     const fetchSocialPlatforms = async () => {
       const { data, error } = await supabase
@@ -106,9 +60,22 @@ export function EventsTable() {
     fetchSocialPlatforms();
   }, []);
 
-  useEffect(() => {
-    // console.log("Updated events:", events);
-  }, [events]);
+  const calculateCountdown = (localTime: string) => {
+    const eventTime = new Date(localTime).getTime();
+    const currentTime = new Date().getTime();
+    const timeDiff = eventTime - currentTime;
+
+    if (timeDiff <= 0) return "Event has passed";
+
+    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  };
 
   const combinedData = events.map((event) => {
     const eventType = eventTypes.find(
@@ -117,23 +84,23 @@ export function EventsTable() {
     const socialPlatform = SocialPlatforms.find(
       (social) => social.id === event.social_platform_id
     );
-    console.log(socialPlatform);
 
     return {
       ...event,
       eventTypeName: eventType ? eventType.name : "Unknown",
       socialPlatformName: socialPlatform ? socialPlatform.name : "Unknown",
+      countdown: calculateCountdown(event.local_time),
     };
   });
 
   return (
     <Table className="bg-white">
-      <TableCaption>A list of your recent invoices.</TableCaption>
+      <TableCaption>A list of your recent events.</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>City</TableHead>
           <TableHead>Base Portal</TableHead>
-          <TableHead>Socail Platform</TableHead>
+          <TableHead>Social Platform</TableHead>
           <TableHead>Event Type</TableHead>
           <TableHead>Language</TableHead>
           <TableHead>Local Time</TableHead>
@@ -149,15 +116,11 @@ export function EventsTable() {
             <TableCell>{event.base_portal_link}</TableCell>
             <TableCell>{event.socialPlatformName}</TableCell>
             <TableCell>{event.eventTypeName}</TableCell>
-
             <TableCell>{event.language}</TableCell>
             <TableCell>{event.local_time}</TableCell>
             <TableCell>{event.time_zone}</TableCell>
             <TableCell>{event.utc_time}</TableCell>
             <TableCell>{event.countdown}</TableCell>
-
-            {/* <TableCell>{invoice.paymentStatus}</TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell> */}
           </TableRow>
         ))}
       </TableBody>
