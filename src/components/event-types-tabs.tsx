@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function EventTypesTabs() {
   const [activeTab, setActiveTab] = useState<string>("");
@@ -65,6 +65,12 @@ export function EventTypesTabs() {
   eventTypes.find((event) => {
     event.descriptionImage === activeTab;
   });
+
+  useEffect(() => {
+    setActiveTab(eventTypes[0].value);
+    // sürekli olarak ilk değeri çağırdığı için diğerlerine geçiş yapamıyor o yüzden activeTab buradan kaldırdık
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="w-full relative flex flex-col items-center">
