@@ -59,7 +59,24 @@ const invoices = [
 
 export function EventsTable() {
   const [events, setEvents] = useState<any[]>([]);
+  const [eventTypes, setEventTypes] = useState<any[]>([]);
+  const [SocialPlatforms, setSocialPlatforms] = useState<any[]>([]);
 
+  //event_types data fetch
+  useEffect(() => {
+    const fetchEventTypes = async () => {
+      const { data, error } = await supabase.from("event_types").select("*");
+      if (data) {
+        setEventTypes(data);
+      } else {
+        console.error(error);
+      }
+    };
+
+    fetchEventTypes();
+  }, []);
+
+  //events data fetch
   useEffect(() => {
     const fetchEvents = async () => {
       const { data, error } = await supabase.from("events").select("*");
@@ -73,11 +90,44 @@ export function EventsTable() {
     fetchEvents();
   }, []);
 
+  //social_platforms data fetch
+  useEffect(() => {
+    const fetchSocialPlatforms = async () => {
+      const { data, error } = await supabase
+        .from("social_platforms")
+        .select("*");
+      if (data) {
+        setSocialPlatforms(data);
+      } else {
+        console.error(error);
+      }
+    };
+
+    fetchSocialPlatforms();
+  }, []);
+
   useEffect(() => {
     // console.log("Updated events:", events);
   }, [events]);
+
+  const combinedData = events.map((event) => {
+    const eventType = eventTypes.find(
+      (type) => type.id === event.event_type_id
+    );
+    const socialPlatform = SocialPlatforms.find(
+      (social) => social.id === event.social_platform_id
+    );
+    console.log(socialPlatform);
+
+    return {
+      ...event,
+      eventTypeName: eventType ? eventType.name : "Unknown",
+      socialPlatformName: socialPlatform ? socialPlatform.name : "Unknown",
+    };
+  });
+
   return (
-    <Table>
+    <Table className="bg-white">
       <TableCaption>A list of your recent invoices.</TableCaption>
       <TableHeader>
         <TableRow>
@@ -93,12 +143,12 @@ export function EventsTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {events.map((event) => (
+        {combinedData.map((event) => (
           <TableRow key={event.id}>
-            <TableCell className="font-medium">{event.city_id}</TableCell>
+            <TableCell className="font-medium">{event.name}</TableCell>
             <TableCell>{event.base_portal_link}</TableCell>
-            <TableCell>{event.social_platform_id}</TableCell>
-            <TableCell>{event.event_type_id}</TableCell>
+            <TableCell>{event.socialPlatformName}</TableCell>
+            <TableCell>{event.eventTypeName}</TableCell>
 
             <TableCell>{event.language}</TableCell>
             <TableCell>{event.local_time}</TableCell>
