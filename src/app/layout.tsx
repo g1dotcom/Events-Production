@@ -1,14 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, Aldrich } from "next/font/google";
 
 import "./globals.css";
 
 import { cn } from "@/lib/utils";
-
-export const roboto = Aldrich({
-  weight: "400",
-  subsets: ["latin"],
-});
+import { aldrich } from "./font";
 
 export const metadata: Metadata = {
   title: "Events",
@@ -21,11 +16,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={roboto.className}>
-      <body className={cn("min-h-screen , bg-[#212529] ")}>
-        {/* <Navbar /> */}
-        {children}
-      </body>
+    <html lang="en" className={`${aldrich.className} text-[10px]`}>
+      <body className={cn("min-h-screen bg-[#212529]")}>{children}</body>
     </html>
   );
 }
