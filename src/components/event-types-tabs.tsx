@@ -2,9 +2,6 @@
 
 import Image from "next/image";
 
-//images
-import AnomallyBanner from "../../public/events/xm-anomaly-photo.jpg";
-
 import { useState } from "react";
 
 export function EventTypesTabs() {
@@ -19,7 +16,7 @@ export function EventTypesTabs() {
       descriptionImage: "xm-anomaly-photo",
     },
     {
-      name: "HEXAATHLON",
+      name: "HEXATHLON",
       value: "hexathlon1",
       description:
         "At Hexathlons, you will have a limited time to complete six challenges. Your results will be ranked on a leaderboard, for the chance to earn an elite Hexathlon medal!",
