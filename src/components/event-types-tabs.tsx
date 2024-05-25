@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-
 import { useEffect, useState } from "react";
 
 export function EventTypesTabs() {
@@ -62,24 +61,19 @@ export function EventTypesTabs() {
 
   const getActiveEvent = () =>
     eventTypes.find((event) => event.value === activeTab);
-  eventTypes.find((event) => {
-    event.descriptionImage === activeTab;
-  });
 
   useEffect(() => {
     setActiveTab(eventTypes[0].value);
-    // sürekli olarak ilk değeri çağırdığı için diğerlerine geçiş yapamıyor o yüzden activeTab buradan kaldırdık
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div className="w-full relative flex flex-col items-center">
-      <div className="w-full flex justify-center   p-5">
+    <div className="w-full relative flex flex-col items-center px-[5rem] py-[2rem]">
+      <div className="w-full flex justify-center ">
         {eventTypes.map((event) => (
           <button
             key={event.name}
             onClick={() => setActiveTab(event.value)}
-            className={`text-white flex flex-col items-center w-40 hover:border-white border-b-2  cursor-pointer ${
+            className={`text-white flex flex-col items-center w-[16rem] hover:border-white border-b-4 cursor-pointer p-[1rem] relative ${
               activeTab === event.value ? "border-white" : "border-[#783cbd]"
             }`}
           >
@@ -88,7 +82,7 @@ export function EventTypesTabs() {
                 width: "100%",
                 height: 50,
                 position: "relative",
-                padding: 10,
+                padding: "1rem",
               }}
             >
               <Image
@@ -99,19 +93,20 @@ export function EventTypesTabs() {
               />
             </div>
             <h1>{event.name}</h1>
+            {activeTab === event.value && <div className="triangle"></div>}
           </button>
         ))}
       </div>
-      <div className="w-full flex justify-center text-white  mt-5 p-5">
+      <div className="w-full flex justify-center text-white mt-5 p-5">
         {getActiveEvent() && (
-          <div className="w-full flex justify-center space-x-10">
+          <div className="max-w-[95rem] mt-[2rem] mb-[2rem] flex justify-center space-x-10">
             <Image
               height={350}
               width={350}
               src={`/events/${getActiveEvent()?.descriptionImage}.jpg`}
               alt={getActiveEvent()?.name ?? ""}
             />
-            <p className="w-[700px]">{getActiveEvent()?.description}</p>
+            <p className="text-[1.7rem]">{getActiveEvent()?.description}</p>
           </div>
         )}
       </div>
