@@ -6,14 +6,7 @@ import { cn } from "@/lib/utils";
 import { aldrich } from "./font";
 
 // Clerk
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
-import Navbar from "@/components/navbar";
+import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   title: "Events",
@@ -28,10 +21,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className={`${aldrich.className} text-[10px]`}>
-        <body className={cn("min-h-screen bg-[#212529]")}>
-          <Navbar />
-          {children}
-        </body>
+        <body className={cn("min-h-screen ")}>{children}</body>
       </html>
     </ClerkProvider>
   );
