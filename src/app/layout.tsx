@@ -13,6 +13,7 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
+import Navbar from "@/components/navbar";
 
 export const metadata: Metadata = {
   title: "Events",
@@ -28,12 +29,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" className={`${aldrich.className} text-[10px]`}>
         <body className={cn("min-h-screen bg-[#212529]")}>
-          <SignedOut>
-            <SignInButton />
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
+          <Navbar />
           {children}
         </body>
       </html>
