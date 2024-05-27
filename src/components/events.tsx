@@ -2,9 +2,7 @@
 import React, { useEffect, useState } from "react";
 import supabase from "@/lib/subaseClient";
 
-type Props = {};
-
-const Events = (props: Props) => {
+export default function Events() {
   const [events, setEvents] = useState<any[]>([]);
 
   useEffect(() => {
@@ -37,6 +35,4 @@ const Events = (props: Props) => {
       </ul>
     </div>
   );
-};
-
-export default Events;
+}
