@@ -8,12 +8,14 @@ export default function Home() {
     <div className=" w-full h-screen">
       <div className="w-full bg-red-500 h-24">
         {" "}
-        <SignedOut>
-          <SignInButton />
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
+        <header>
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </header>
       </div>
       <Header />
       <Map />
