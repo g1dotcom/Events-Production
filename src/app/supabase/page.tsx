@@ -3,7 +3,6 @@ import { createClient } from "@supabase/supabase-js";
 import { useRef, useState } from "react";
 
 // Add clerk to Window to avoid type errors
-
 declare global {
   interface Window {
     Clerk: any;
@@ -17,7 +16,6 @@ function createClerkSupabaseClient() {
     {
       global: {
         // Get the Supabase token with a custom fetch method
-
         fetch: async (url, options = {}) => {
           const clerkToken = await window.Clerk.session?.getToken({
             template: "supabase",
@@ -60,7 +58,9 @@ export default function Supabase() {
 
   return (
     <>
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <div
+        style={{ display: "flex", flexDirection: "column", background: "red" }}
+      >
         <input
           onSubmit={sendAddress}
           style={{ color: "black" }}
@@ -68,7 +68,7 @@ export default function Supabase() {
           ref={inputRef}
         />
         <button onClick={sendAddress}>Send Address</button>
-        <button onClick={listAddresses}>Fetch Addresses</button>
+        <button onClick={listAddresses}>{}</button>
       </div>
       <h2>Addresses</h2>
       {!addresses ? (
