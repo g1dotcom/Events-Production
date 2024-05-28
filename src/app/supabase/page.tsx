@@ -1,4 +1,5 @@
 "use client";
+import { SignedOut, SignInButton, SignedIn, UserButton } from "@clerk/nextjs";
 import { createClient } from "@supabase/supabase-js";
 import { useRef, useState } from "react";
 
@@ -40,11 +41,16 @@ const client = createClerkSupabaseClient();
 
 export default function Supabase() {
   const [addresses, setAddresses] = useState<any>();
-  const listAddresses = async () => {
-    // Fetches all addresses scoped to the user
-    // Replace "Addresses" with your table name
-    const { data, error } = await client.from("user_table").select();
-    if (!error) setAddresses(data);
+
+  // list users from supabase database user_table table
+
+  const listUsers = async () => {
+    const { data, error } = await client.from("user_table").select("content");
+    if (error) {
+      console.error(error);
+    } else {
+      setAddresses(data);
+    }
   };
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -58,6 +64,12 @@ export default function Supabase() {
 
   return (
     <>
+      <SignedOut>
+        <SignInButton />
+      </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
       <div
         style={{ display: "flex", flexDirection: "column", background: "red" }}
       >
@@ -68,7 +80,7 @@ export default function Supabase() {
           ref={inputRef}
         />
         <button onClick={sendAddress}>Send Address</button>
-        <button onClick={listAddresses}>{}</button>
+        <button onClick={listUsers}>{}</button>
       </div>
       <h2>Addresses</h2>
       {!addresses ? (
