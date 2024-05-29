@@ -4,17 +4,13 @@
 import "leaflet/dist/leaflet.css";
 
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
-
 import "leaflet-defaulticon-compatibility";
 // END: Preserve spaces to avoid auto-sorting
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import supabase from "@/lib/subaseClient";
-import { FlipWordsTitle } from "./flip-words-title";
 
 export default function Map() {
-  const [latitude, setLatitude] = useState<number>(0);
-  const [longitude, setLongitude] = useState<number>(0);
   const [eventsData, setEventsData] = useState<any[]>([]);
   const [eventTypes, setEventTypes] = useState<any[]>([]);
 
@@ -23,8 +19,6 @@ export default function Map() {
       const { data, error } = await supabase.from("events").select("*");
       if (data) {
         // console.log(data[0].latitude, data[0].longitude);
-        setLatitude(data[0].latitude);
-        setLongitude(data[0].longitude);
         setEventsData(data);
       } else {
         console.error(error);
@@ -57,7 +51,13 @@ export default function Map() {
     };
   });
 
-  const position: [number, number] = [latitude, longitude];
+  if (typeof window == "undefined") {
+    console.log(window);
+  }
+
+  if (typeof window !== "undefined") {
+    console.log(window);
+  }
 
   return (
     <MapContainer
