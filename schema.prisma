@@ -1,0 +1,57 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = "postgres://postgres.tblnstcqgqxpfcuemlxy:BKEpFlRQmZ0IYNhf@aws-0-eu-central-1.pooler.supabase.com:5432/postgres"
+}
+
+// User - Associated with a clerk user
+model User {
+    id          String   @id @default(cuid())
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    clerkUserId String?  @unique
+}
+
+// EventType - Types of events
+model EventType {
+    id        String   @id @default(cuid())
+    name      String
+    imageUrl  String? // Assuming this column can be null
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    events    Event[]
+}
+
+// SocialPlatform - Social media platforms
+model SocialPlatform {
+    id        String   @id @default(cuid())
+    name      String
+    url       String?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    events    Event[]
+}
+
+// Event - Details about events
+model Event {
+    id               String   @id @default(cuid())
+    name             String
+    basePortalLink   String
+    socialPlatformId String
+    eventTypeId      String
+    language         String
+    localTime        DateTime
+    timeZone         String
+    utcTime          DateTime
+    longitude        Float
+    latitude         Float
+    locationName     String
+    createdAt        DateTime @default(now())
+    updatedAt        DateTime @updatedAt
+
+    socialPlatform SocialPlatform @relation(fields: [socialPlatformId], references: [id])
+    eventType      EventType      @relation(fields: [eventTypeId], references: [id])
+}
