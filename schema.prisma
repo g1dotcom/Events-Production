@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
     provider = "postgresql"
-    url      = "postgres://postgres.tblnstcqgqxpfcuemlxy:BKEpFlRQmZ0IYNhf@aws-0-eu-central-1.pooler.supabase.com:5432/postgres"
+    url      = "postgres://postgres.tblnstcqgqxpfcuemlxy:BKEpFlRQmZ0IYNhf@aws-0-eu-central-1.pooler.supabase.com:5432/postgres?pgbouncer=true"
 }
 
 // User - Associated with a clerk user
