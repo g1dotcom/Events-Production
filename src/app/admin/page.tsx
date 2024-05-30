@@ -17,7 +17,7 @@ export default async function UserAdmin() {
         clerkUserId: user.id,
       },
     });
-    console.log(userFromDB);
+    console.log(userFromDB, "userFromDB");
     // {
     //   id: 'clwru7mhz0000ce6rzdkm60r9',
     //   createdAt: 2024-05-29T13:03:31.751Z,
@@ -28,9 +28,23 @@ export default async function UserAdmin() {
 
     //check if userFromDB is not null and if userFromDB.admin is true render admin page else render not an admin page
     if (userFromDB && userFromDB.admin) {
-      return "Admin Page";
+      return (
+        <div>
+          <h1>Admin Page</h1>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </div>
+      );
     } else {
-      return "Not an Admin";
+      return (
+        <div>
+          <h1>Not an Admin</h1>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </div>
+      );
     }
   }
 
