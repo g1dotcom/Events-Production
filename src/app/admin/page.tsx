@@ -1,10 +1,12 @@
 import prisma from "@/lib/database";
 import { SignedOut, SignInButton, SignedIn, UserButton } from "@clerk/nextjs";
 import { auth, clerkClient, currentUser } from "@clerk/nextjs/server";
+import { permanentRedirect } from "next/navigation";
 
 export default async function UserAdmin() {
   // Get the userId from auth() -- if null, the user is not signed in
   const { userId } = auth();
+  auth().protect();
 
   if (userId) {
     // Get the User object from Clerk when you need access to the user's information
@@ -25,26 +27,25 @@ export default async function UserAdmin() {
     //   clerkUserId: 'user_2h8u1RXI2bKbKpIj4BQyXeSUHE6',
     //   admin: false
     // }
+    //fetch event types from eventTypes table prisma db
+    const eventTypes = await prisma.eventType.findMany();
+    console.log(eventTypes, "eventTypes");
+    //fetch social platforms from socialPlatforms table prisma db
+    const socialPlatforms = await prisma.socialPlatform.findMany();
+    console.log(socialPlatforms, "socialPlatforms");
 
     //check if userFromDB is not null and if userFromDB.admin is true render admin page else render not an admin page
     if (userFromDB && userFromDB.admin) {
       return (
         <div>
-          <h1>Admin Page</h1>
+          <h1>Admin</h1>
           <SignedIn>
             <UserButton />
           </SignedIn>
         </div>
       );
     } else {
-      return (
-        <div>
-          <h1>Not an Admin</h1>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
-        </div>
-      );
+      permanentRedirect("/");
     }
   }
 
