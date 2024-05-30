@@ -15,6 +15,7 @@ export function EventsTable() {
   const [events, setEvents] = useState<any[]>([]);
   const [eventTypes, setEventTypes] = useState<any[]>([]);
   const [SocialPlatforms, setSocialPlatforms] = useState<any[]>([]);
+  const [users, setUsers] = useState<any[]>([]);
 
   // event_types data fetch
   useEffect(() => {
