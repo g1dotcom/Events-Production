@@ -23,34 +23,6 @@ export default function Map({
   const eventTypes = myeventTypes;
   console.log(eventTypes, "eventTypes data...");
 
-  // useEffect(() => {
-  //   const fetchLocations = async () => {
-  //     const { data, error } = await supabase.from("events").select("*");
-  //     if (data) {
-  //       console.log(data[0].latitude, data[0].longitude, "location data...");
-
-  //       setEventsData(data);
-  //     } else {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchLocations();
-  // }, []);
-
-  // useEffect(() => {
-  //   const fetchEventTypes = async () => {
-  //     const { data, error } = await supabase.from("event_types").select("*");
-  //     if (data) {
-  //       setEventTypes(data);
-  //     } else {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchEventTypes();
-  // }, []);
-
   const combinedData = events.map((event: any) => {
     const eventType = eventTypes.find(
       (type: any) => type.id === event.eventTypeId
