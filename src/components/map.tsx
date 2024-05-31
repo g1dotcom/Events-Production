@@ -7,8 +7,6 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import "leaflet-defaulticon-compatibility";
 // END: Preserve spaces to avoid auto-sorting
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import { useEffect, useState } from "react";
-import supabase from "@/lib/subaseClient";
 
 export default function Map({
   myEvent,

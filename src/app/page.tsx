@@ -5,7 +5,7 @@ import Header from "@/components/header";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import EventsTypes from "@/components/events";
+import Events from "@/components/events";
 
 export default function Home() {
   return (
@@ -23,10 +23,11 @@ export default function Home() {
           </SignedIn>
         </Button>
       </div>
-      <Header />
+     
       <Map />*/}
       {/* <EventsTable /> */}
-      <EventsTypes />
+      {/* <Header /> */}
+      <Events />
     </div>
   );
 }

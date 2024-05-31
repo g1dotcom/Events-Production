@@ -2,7 +2,7 @@ import prisma from "@/lib/database";
 import Map from "./map";
 import { EventsTable } from "./events-table";
 
-export default async function EventsTypes() {
+export default async function Events() {
   //fetch data prisma db
   const myEvent = await prisma.event.findMany();
   console.log(myEvent, "myEvent");
@@ -15,7 +15,6 @@ export default async function EventsTypes() {
 
   return (
     <div>
-      {" "}
       <Map myEvent={myEvent} myeventTypes={myeventTypes} />
       <EventsTable
         myEvent={myEvent}
