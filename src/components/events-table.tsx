@@ -1,4 +1,3 @@
-"use client";
 import {
   Table,
   TableBody,
@@ -8,60 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import supabase from "@/lib/subaseClient";
-import { useState, useEffect } from "react";
 
-export function EventsTable() {
-  const [events, setEvents] = useState<any[]>([]);
-  const [eventTypes, setEventTypes] = useState<any[]>([]);
-  const [SocialPlatforms, setSocialPlatforms] = useState<any[]>([]);
-  const [users, setUsers] = useState<any[]>([]);
-
-  // event_types data fetch
-  useEffect(() => {
-    const fetchEventTypes = async () => {
-      const { data, error } = await supabase.from("event_types").select("*");
-      if (data) {
-        setEventTypes(data);
-        console.log("Event Types Data:", data); // Bu satır doğru
-      } else {
-        console.error(error);
-      }
-    };
-
-    fetchEventTypes();
-  }, []);
-
-  // events data fetch
-  useEffect(() => {
-    const fetchEvents = async () => {
-      const { data, error } = await supabase.from("events").select("*");
-      if (data) {
-        setEvents(data);
-      } else {
-        console.error(error);
-      }
-    };
-
-    fetchEvents();
-  }, []);
-
-  // social_platforms data fetch
-  useEffect(() => {
-    const fetchSocialPlatforms = async () => {
-      const { data, error } = await supabase
-        .from("social_platforms")
-        .select("*");
-      if (data) {
-        setSocialPlatforms(data);
-      } else {
-        console.error(error);
-      }
-    };
-
-    fetchSocialPlatforms();
-  }, []);
-
+export function EventsTable({ myEvent, myeventTypes, mysocialPlatform }: any) {
+  /////////calculate//////////,
   const calculateCountdown = (localTime: string) => {
     const eventTime = new Date(localTime).getTime();
     const currentTime = new Date().getTime();
@@ -79,19 +27,27 @@ export function EventsTable() {
     return `${days}d ${hours}h ${minutes}m ${seconds}s`;
   };
 
-  const combinedData = events.map((event) => {
+  const events = myEvent || [];
+  console.log(events, "event data...");
+  const eventTypes = myeventTypes || [];
+  const SocialPlatforms = mysocialPlatform || [];
+
+  const combinedData = events.map((event: any) => {
     const eventType = eventTypes.find(
-      (type) => type.id === event.event_type_id
+      (type: any) => type.id === event.eventTypeId
     );
     const socialPlatform = SocialPlatforms.find(
-      (social) => social.id === event.social_platform_id
+      (social: any) => social.id === event.socialPlatformId
     );
 
     return {
       ...event,
       eventTypeName: eventType ? eventType.name : "Unknown",
       socialPlatformName: socialPlatform ? socialPlatform.name : "Unknown",
-      countdown: calculateCountdown(event.local_time),
+      countdown: calculateCountdown(event.localTime),
+      localTime: new Date(event.localTime).toLocaleString(),
+      utcTime: new Date(event.localTime).toLocaleString(),
+      timeZone: new Date(event.timeZone).toLocaleString(),
     };
   });
 
@@ -112,26 +68,20 @@ export function EventsTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {combinedData.map((event) => (
+        {combinedData.map((event: any) => (
           <TableRow key={event.id}>
             <TableCell className="font-medium">{event.name}</TableCell>
-            <TableCell>{event.base_portal_link}</TableCell>
+            <TableCell>{event.basePortalLink}</TableCell>
             <TableCell>{event.socialPlatformName}</TableCell>
             <TableCell>{event.eventTypeName}</TableCell>
             <TableCell>{event.language}</TableCell>
-            <TableCell>{event.local_time}</TableCell>
-            <TableCell>{event.time_zone}</TableCell>
-            <TableCell>{event.utc_time}</TableCell>
+            <TableCell>{event.localTime}</TableCell>
+            <TableCell>{event.timeZone}</TableCell>
+            <TableCell>{event.utcTime}</TableCell>
             <TableCell>{event.countdown}</TableCell>
           </TableRow>
         ))}
       </TableBody>
-      {/* <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
-        </TableRow>
-      </TableFooter> */}
     </Table>
   );
 }
