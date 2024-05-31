@@ -24,9 +24,9 @@ export default function Home() {
         </Button>
       </div>
       <Header />
-      <Map />
-      <EventsTable /> */}
-      <EventsTypes />
+      <Map />*/}
+      <EventsTable />
+      {/* <EventsTypes /> */}
     </div>
   );
 }
