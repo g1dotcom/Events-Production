@@ -56,12 +56,6 @@ export default function Map({
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {/* <Marker position={[51.505, -0.09]}>
-        <Popup>
-          This Marker icon is displayed correctly with{" "}
-          <i>leaflet-defaulticon-compatibility</i>.
-        </Popup>
-      </Marker> */}
       {combinedData.map((event: any) => (
         <Marker key={event.id} position={[event.longitude, event.latitude]}>
           <Popup>
@@ -78,17 +72,6 @@ export default function Map({
           </Popup>
         </Marker>
       ))}
-
-      {/* </div>
-           <div className="flex flex-col w-full">
-              <p className="w-full"> Event Type: {event.event_type_id}</p>
-              <p> Language: {event.language}</p>
-              <p> Start Time: {event.local_time}</p> Time Zone: UTC -4 :{" "}
-              <p> {event.utc_time}</p>
-            </div>
-          </Popup>
-        </Marker> */}
-      {/* ))} */}
     </MapContainer>
   );
 }
