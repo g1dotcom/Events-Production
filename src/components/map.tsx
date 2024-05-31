@@ -10,40 +10,50 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { useEffect, useState } from "react";
 import supabase from "@/lib/subaseClient";
 
-export default function Map() {
-  const [eventsData, setEventsData] = useState<any[]>([]);
-  const [eventTypes, setEventTypes] = useState<any[]>([]);
+export default function Map({
+  myEvent,
+  myeventTypes,
+}: {
+  myEvent: any;
+  myeventTypes: any;
+}) {
+  const events = myEvent;
+  console.log(events, "event data...");
 
-  useEffect(() => {
-    const fetchLocations = async () => {
-      const { data, error } = await supabase.from("events").select("*");
-      if (data) {
-        // console.log(data[0].latitude, data[0].longitude);
-        setEventsData(data);
-      } else {
-        console.error(error);
-      }
-    };
+  const eventTypes = myeventTypes;
+  console.log(eventTypes, "eventTypes data...");
 
-    fetchLocations();
-  }, []);
+  // useEffect(() => {
+  //   const fetchLocations = async () => {
+  //     const { data, error } = await supabase.from("events").select("*");
+  //     if (data) {
+  //       console.log(data[0].latitude, data[0].longitude, "location data...");
 
-  useEffect(() => {
-    const fetchEventTypes = async () => {
-      const { data, error } = await supabase.from("event_types").select("*");
-      if (data) {
-        setEventTypes(data);
-      } else {
-        console.error(error);
-      }
-    };
+  //       setEventsData(data);
+  //     } else {
+  //       console.error(error);
+  //     }
+  //   };
 
-    fetchEventTypes();
-  }, []);
+  //   fetchLocations();
+  // }, []);
 
-  const combinedData = eventsData.map((event) => {
+  // useEffect(() => {
+  //   const fetchEventTypes = async () => {
+  //     const { data, error } = await supabase.from("event_types").select("*");
+  //     if (data) {
+  //       setEventTypes(data);
+  //     } else {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchEventTypes();
+  // }, []);
+
+  const combinedData = events.map((event: any) => {
     const eventType = eventTypes.find(
-      (type) => type.id === event.event_type_id
+      (type: any) => type.id === event.eventTypeId
     );
     return {
       ...event,
@@ -80,7 +90,7 @@ export default function Map() {
           <i>leaflet-defaulticon-compatibility</i>.
         </Popup>
       </Marker> */}
-      {combinedData.map((event) => (
+      {combinedData.map((event: any) => (
         <Marker key={event.id} position={[event.longitude, event.latitude]}>
           <Popup>
             <div>
