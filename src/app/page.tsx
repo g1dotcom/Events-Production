@@ -25,8 +25,8 @@ export default function Home() {
       </div>
       <Header />
       <Map />*/}
-      <EventsTable />
-      {/* <EventsTypes /> */}
+      {/* <EventsTable /> */}
+      <EventsTypes />
     </div>
   );
 }
