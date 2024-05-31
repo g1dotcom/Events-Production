@@ -23,6 +23,7 @@ export function EventsTable() {
       const { data, error } = await supabase.from("event_types").select("*");
       if (data) {
         setEventTypes(data);
+        console.log("Event Types Data:", data); // Bu satır doğru
       } else {
         console.error(error);
       }
