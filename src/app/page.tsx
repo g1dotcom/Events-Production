@@ -1,19 +1,14 @@
 import dynamic from "next/dynamic";
 const Map = dynamic(() => import("@/components/map"), { ssr: false });
-import { EventsTable } from "@/components/events-table";
 import Header from "@/components/header";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import Events from "@/components/events";
+import { Button } from "@/components/ui/button";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export default function Home() {
   return (
     <div className=" w-full h-screen ">
-      {/* <div className="w-full flex justify-end absolute right-6 top-5 h-24">
-        <Link href="/admin">
-          <Button variant={"secondary"}>Go to Admin Page</Button>
-        </Link>
+      <div className="w-full flex justify-end absolute right-6 top-5 h-24">
         <Button variant={"destructive"}>
           <SignedOut>
             <SignInButton />
@@ -23,10 +18,9 @@ export default function Home() {
           </SignedIn>
         </Button>
       </div>
-     
-      <Map />*/}
+
       {/* <EventsTable /> */}
-      {/* <Header /> */}
+      <Header />
       <Events />
     </div>
   );
