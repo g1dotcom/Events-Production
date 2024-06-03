@@ -29,7 +29,7 @@ export function EventTypesTabs() {
       descriptionImage: "mission-day-photo",
     },
     {
-      name: "NL-1331",
+      name: "NL1331",
       value: "nl1331",
       description:
         "NL-1331 features casual missions aiming to explore different cities and locales using a special Ingress-customized vehicle called the `XM Detection Mobile Lab`.",
@@ -83,6 +83,7 @@ export function EventTypesTabs() {
                 height: 55,
                 position: "relative",
                 padding: "1rem",
+                marginBottom: "1rem",
               }}
             >
               <Image
@@ -92,21 +93,25 @@ export function EventTypesTabs() {
                 alt={event.name}
               />
             </div>
-            <h1>{event.name}</h1>
+            <h1 className="text-[1.5rem]">{event.name}</h1>
             {activeTab === event.value && <div className="triangle"></div>}
           </button>
         ))}
       </div>
-      <div className="w-full flex justify-center text-white mt-5 p-5">
+      <div className="w-full flex justify-center text-white mt-5 p-5 ">
         {getActiveEvent() && (
-          <div className="max-w-[95rem] mt-[2rem] mb-[2rem] flex justify-center space-x-10">
-            <Image
-              height={350}
-              width={350}
-              src={`/events/${getActiveEvent()?.descriptionImage}.jpg`}
-              alt={getActiveEvent()?.name ?? ""}
-            />
-            <p className="text-[1.7rem]">{getActiveEvent()?.description}</p>
+          <div className="max-w-[95rem] h-auto mt-[2rem] mb-[2rem] flex justify-center gap-12">
+            <div className="max-w-full h-auto">
+              <Image
+                width={650}
+                height={480}
+                src={`/events/${getActiveEvent()?.descriptionImage}.jpg`}
+                alt={getActiveEvent()?.name ?? ""}
+              />
+            </div>
+            <p className="text-[1.7rem] text-left max-w-full">
+              {getActiveEvent()?.description}
+            </p>
           </div>
         )}
       </div>
