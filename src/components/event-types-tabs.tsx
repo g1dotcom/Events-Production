@@ -80,7 +80,7 @@ export function EventTypesTabs() {
             <div
               style={{
                 width: "100%",
-                height: 50,
+                height: 55,
                 position: "relative",
                 padding: "1rem",
               }}
