@@ -98,7 +98,7 @@ export function EventTypesTabs() {
           </button>
         ))}
       </div>
-      <div className="w-full flex justify-center text-white mt-5 p-5 ">
+      <div className="w-full flex justify-center text-white mt-5 p-5">
         {getActiveEvent() && (
           <div className="max-w-[95rem] h-auto mt-[2rem] mb-[2rem] flex justify-center gap-12">
             <div className="max-w-full h-auto">
